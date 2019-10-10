@@ -22,10 +22,12 @@ let run = document.getElementById("run"),
 
 /* Delegated handler for cells */
 cellGrid.addEventListener("mousedown", event => {
-  toggleCellState(event.target);
+  if (event.target.className === "cell") {
+    toggleCellState(event.target);
+  }
 });
 cellGrid.addEventListener("mouseover", event => {
-  if (event.buttons == 1) {
+  if (event.buttons == 1 && event.target.className === "cell") {
     toggleCellState(event.target);
   }
 });
