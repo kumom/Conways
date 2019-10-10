@@ -52,10 +52,13 @@ export function updateInfoBar(alive, dead) {
 }
 
 export function toggleCellState(cell) {
-  cell.alive = !cell.alive;
-  cell.style.backgroundColor = cell.alive ? aliveColor : deadColor;
-  // update info bar
-  updateInfoBar();
+  // check it's indeed a cell instead of the cell grid
+  if (cell.className === "cell") {
+    cell.alive = !cell.alive;
+    cell.style.backgroundColor = cell.alive ? aliveColor : deadColor;
+    // update info bar
+    updateInfoBar();
+  }
 }
 
 // Help init #row and #col for different cellgrid(window) size and different cell size
