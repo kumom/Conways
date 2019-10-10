@@ -18,7 +18,7 @@ body {
   grid-auto-flow: column;
   gap: 1% 0;
   font-family: "Baloo Da", sans-serif;
-  height: 100vh;
+  height: 100%;
   color: rgba(43, 43, 43, 0.94);
   background: hsla(0, 0%, 100%, 0.872);
   padding: 1%;
@@ -31,7 +31,7 @@ body {
   grid: 1fr / 1fr 1fr;
   grid-auto-flow: row;
   align-items: center;
-  font-size: 3.6vmin;
+  font-size: 5vmin;
 }
 
 #alive {
@@ -60,7 +60,6 @@ body {
   grid: 1fr / 1fr 1fr;
   grid-auto-flow: row;
   align-items: center;
-  font-size: 3vh;
 }
 
 #control-button-container {
@@ -73,7 +72,7 @@ body {
   z-index: -100;
   margin-top: 1vmin;
   margin-right: 0.5vmin;
-  width: 5vmin;
+  width: 6vmin;
 }
 
 .active-button {
@@ -86,7 +85,7 @@ body {
 }
 
 #total {
-  font-size: 3.6vmin;
+  font-size: 5vmin;
   justify-self: end;
 }
 
@@ -214,9 +213,5 @@ body {
   }
   #modal-content {
     font-size: 3.4vmin;
-  }
-  /* prevents overflow for mobile devices */
-  body {
-    max-height: 100%;
   }
 }
