@@ -160,7 +160,7 @@ body {
 
 #modal-content img {
   width: 2.8vmin;
-  transform: translate(-5%, 25%);
+  transform: translate(0%, 18%);
 }
 
 #modal-close {
