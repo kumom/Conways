@@ -45,6 +45,10 @@ cellGrid.addEventListener("touchmove", event => {
   event.preventDefault();
 });
 
+cellGrid.addEventListener("touchstart", event => {
+  event.preventDefault();
+});
+
 /* Delegated handler for click events */
 window.addEventListener("click", event => {
   if (event.target.id === "step") {
@@ -94,6 +98,7 @@ window.addEventListener("keydown", event => {
 
 // equivalent with keydown event for mobile
 controlButtons.addEventListener("touchstart", event => {
+  event.preventDefault();
   if (event.target.className.includes("control-button")) {
     event.target.classList.add("active-button");
   }
@@ -112,6 +117,7 @@ window.addEventListener("keyup", event => {
 
 // equivalent with keyup event for mobile
 controlButtons.addEventListener("touchend", () => {
+  event.preventDefault();
   for (let node of controlButtons.children) {
     if (node.className.includes("control-button")) {
       node.classList.remove("active-button");
@@ -119,6 +125,7 @@ controlButtons.addEventListener("touchend", () => {
   }
 });
 controlButtons.addEventListener("touchcancel", () => {
+  event.preventDefault();
   for (let node of controlButtons.children) {
     if (node.className.includes("control-button")) {
       node.classList.remove("active-button");
