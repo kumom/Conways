@@ -218,13 +218,13 @@ body {
 
 /* Display elements differently based on type of devices */
 @media (hover: hover) {
-  .forDesktop {
+  .forMobile {
     display: none;
   }
 }
 
 @media (hover: none) {
-  .forMobile {
+  .forDesktop {
     display: none;
   }
 }
