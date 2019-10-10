@@ -17,25 +17,39 @@
             </div>
             <button id="modal-close" class="close">&times;</button>
             <p id="modal-content">In this torus 2D grid, each cell as a "life" has 8 surrounding neighbors.
-                <font style="color:rgb(97, 184, 121);">Alive</font> cells die in the next round
+                <span style="color: rgb(97, 184, 121);">Alive</span> cells die in the next round
                 if the
                 number of
                 their
                 alive neighbors is
                 strictly less than 2 or greater than 3.
-                <font style="color:rgb(189, 106, 98);">Dead</font> cells would come back to life if
+                <span style="color: rgb(189, 106, 98);">Dead</span> cells would come back to life if
                 they have exactly 3 alive neighbors.
                 These simple rules yet produce many interesting <a
                     href="http://pi.math.cornell.edu/~lipa/mec/lesson6.html" target="_blank"
                     rel="noopener">patterns</a>. You can try them out here
                 and see the evolution.<br>
 
-                <span style="font-size:130%;">&lt;Control&gt;</span><br>
-                &middot; Run the game by pressing "space" key or clicking <img src="img/run.svg"><br>
-                &middot; Make one step by pressing "->" key or clicking <img src="img/step.svg"><br>
-                &middot; Restart with a random pattern by clicking <img src="img/restart.svg"><br>
-                &middot; Click (and drag) to toggle the state of cells<br>
-                &middot; Modify the grid size in the bottom right corder
+                <span style="font-size:130%;">&lt;&lt;Control&gt;&gt;</span><br>
+                <!-- Do not display the following on touchscreen devices -->
+                <span class="forMobile">
+                    &lt;Run the game by pressing "space" key or clicking <img src="img/run.svg">&gt;<br>
+                    &lt;Make one step by pressing "->" key or clicking <img src="img/step.svg">&gt;<br>
+                    &lt;Restart with a random pattern by clicking <img src="img/restart.svg">&gt;<br>
+                    &lt;Click and drag to toggle the state of cells&gt;<br>
+                    &lt;Modify the grid size in the bottom right corder&gt;
+                </span>
+                <!-- Do not display the following on non-touchscreen devices -->
+                <span class="forDesktop">
+                    &lt;Run the game by clicking <img src="img/run.svg">&gt;<br>
+                    &lt;Make one step by clicking <img src="img/step.svg">&gt;<br>
+                    &lt;Restart with a random pattern by clicking <img src="img/restart.svg">&gt;<br>
+                    &lt;Tag and drag to toggle the state of cells&gt;<br>
+                    &lt;Modify the grid size in the bottom right corder&gt;
+                </span>
+
+
+
             </p>
         </div>
 

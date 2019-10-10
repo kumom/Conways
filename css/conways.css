@@ -160,7 +160,7 @@ body {
 
 #modal-content img {
   width: 2.8vmin;
-  transform: translate(5%, 20%);
+  transform: translate(-5%, 25%);
 }
 
 #modal-close {
@@ -175,7 +175,7 @@ body {
   font-size: bold;
 }
 
-/* place hover rules here to avoid stickiness effect on mobile devices */
+/* do not apply these on touchscreen devices */
 @media (hover: hover) {
   .control-button:hover {
     cursor: pointer;
@@ -213,5 +213,18 @@ body {
   }
   #modal-content {
     font-size: 3.4vmin;
+  }
+}
+
+/* Display elements differently based on type of devices */
+@media (hover: hover) {
+  .forDesktop {
+    display: none;
+  }
+}
+
+@media (hover: none) {
+  .forMobile {
+    display: none;
   }
 }
