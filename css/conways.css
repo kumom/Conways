@@ -22,6 +22,7 @@ body {
   color: rgba(43, 43, 43, 0.94);
   background: hsla(0, 0%, 100%, 0.872);
   padding: 1%;
+  font-size: 5vmin;
 }
 
 /* info bar */
@@ -31,7 +32,6 @@ body {
   grid: 1fr / 1fr 1fr;
   grid-auto-flow: row;
   align-items: center;
-  font-size: 5vmin;
 }
 
 #alive {
@@ -60,10 +60,7 @@ body {
   grid: 1fr / 1fr 1fr;
   grid-auto-flow: row;
   align-items: center;
-}
-
-#control-button-container {
-  justify-self: start;
+  justify-items: start;
 }
 
 #control-bar img {
@@ -85,7 +82,6 @@ body {
 }
 
 #total {
-  font-size: 5vmin;
   justify-self: end;
 }
 
@@ -117,40 +113,39 @@ body {
   font-size: 1.8vw;
 }
 
-#alert-close {
-  font-size: 5vmin;
-}
-
 /* modal window */
 #modal {
   display: grid;
   grid: 1fr 5fr / 9fr 1fr;
   grid-template-areas:
     "title close"
-    "modal-content .";
+    "modal-content modal-content";
   justify-items: center;
   width: 100vmin;
   height: 100vh;
   overflow: auto;
-  padding-left: 5vw;
-  padding-right: 1vw;
   text-align: center;
+  padding-top: 1%;
+  padding-bottom: 1%;
 }
 
 #modal-title {
   grid-area: title;
   align-self: end;
-  font-size: 5.5vmin;
+  font-size: 130%;
+  transform: translate(10%, 0%);
 }
 
 #modal-title img {
-  width: 3vmin;
+  height: 4vh;
 }
 
 #modal-content {
   grid-area: modal-content;
   align-self: start;
-  font-size: 2.8vmin;
+  font-size: 70%;
+  padding-left: 10%;
+  padding-right: 10%;
 }
 
 #modal-content a {
@@ -164,21 +159,22 @@ body {
 }
 
 #modal-close {
-  font-size: 5vmin;
   align-self: center;
+  transform: translate(0%, 10%);
 }
 
 /* close buttons */
 .close {
   grid-area: close;
   color: #aaa;
-  font-size: bold;
 }
 
 /* do not apply these on touchscreen devices */
 @media (hover: hover) {
-  .control-button:hover {
+  button:hover {
     cursor: pointer;
+  }
+  .control-button:hover {
     filter: invert(0.5);
   }
   #row:hover,
@@ -189,12 +185,10 @@ body {
   .close:hover {
     color: rgb(26, 26, 26);
     text-decoration: none;
-    cursor: pointer;
   }
   #alive:hover {
     color: rgb(69, 131, 87);
   }
-
   #dead:hover {
     color: rgb(138, 73, 66);
   }
@@ -210,9 +204,6 @@ body {
   }
   #alert {
     font-size: 4vw;
-  }
-  #modal-content {
-    font-size: 3.4vmin;
   }
 }
 
