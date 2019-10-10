@@ -1,0 +1,222 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+button {
+  all: unset;
+  transition: all 0.2s;
+}
+
+body {
+  display: grid;
+  grid-template:
+    "info-bar" 0.5fr
+    "cell-grid" 8.3fr
+    "control-bar" 0.7fr / 1fr;
+  grid-auto-flow: column;
+  gap: 1% 0;
+  font-family: "Baloo Da", sans-serif;
+  height: 100vh;
+  color: rgba(43, 43, 43, 0.94);
+  background: hsla(0, 0%, 100%, 0.872);
+  padding: 1%;
+}
+
+/* info bar */
+#info-bar {
+  grid-area: info-bar;
+  display: grid;
+  grid: 1fr / 1fr 1fr;
+  grid-auto-flow: row;
+  align-items: center;
+  font-size: 3.6vmin;
+}
+
+#alive {
+  justify-self: start;
+}
+#dead {
+  justify-self: end;
+}
+
+/* cell grid */
+#cell-grid {
+  grid-area: cell-grid;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+}
+
+.cell {
+  box-shadow: inset 2px 2px 2px white, 0px 1px 3px rgba(116, 115, 115, 0.5);
+}
+
+/* control bar */
+#control-bar {
+  grid-area: control-bar;
+  display: grid;
+  grid: 1fr / 1fr 1fr;
+  grid-auto-flow: row;
+  align-items: center;
+  font-size: 3vh;
+}
+
+#control-button-container {
+  justify-self: start;
+}
+
+#control-bar img {
+  /* shift images to the bottom of stack so that click events on buttons fire */
+  position: relative;
+  z-index: -100;
+  margin-top: 1vmin;
+  margin-right: 0.5vmin;
+  width: 5vmin;
+}
+
+.active-button {
+  cursor: pointer;
+  filter: invert(0.5);
+}
+
+.control-button:focus {
+  outline: 0;
+}
+
+#total {
+  font-size: 3.6vmin;
+  justify-self: end;
+}
+
+#row,
+#col {
+  padding-left: 0.3vmin;
+  padding-right: 0.3vmin;
+}
+
+/* pop up window */
+.popup {
+  position: absolute;
+  z-index: 1;
+  background-color: rgba(26, 25, 25, 0.8);
+  color: rgba(205, 205, 205, 0.897);
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* alert message box */
+#alert {
+  display: none;
+  grid: 1fr / 13fr 1fr;
+  grid-template-areas: "message close";
+  justify-items: center;
+  align-items: center;
+  padding: 2%;
+  font-size: 1.8vw;
+}
+
+#alert-close {
+  font-size: 5vmin;
+}
+
+/* modal window */
+#modal {
+  display: grid;
+  grid: 1fr 5fr / 9fr 1fr;
+  grid-template-areas:
+    "title close"
+    "modal-content .";
+  justify-items: center;
+  width: 100vmin;
+  height: 100vh;
+  overflow: auto;
+  padding-left: 5vw;
+  padding-right: 1vw;
+  text-align: center;
+}
+
+#modal-title {
+  grid-area: title;
+  align-self: end;
+  font-size: 5.5vmin;
+}
+
+#modal-title img {
+  width: 3vmin;
+}
+
+#modal-content {
+  grid-area: modal-content;
+  align-self: start;
+  font-size: 2.8vmin;
+}
+
+#modal-content a {
+  color: inherit;
+  text-decoration: underline;
+}
+
+#modal-content img {
+  width: 2.8vmin;
+  transform: translate(5%, 20%);
+}
+
+#modal-close {
+  font-size: 5vmin;
+  align-self: center;
+}
+
+/* close buttons */
+.close {
+  grid-area: close;
+  color: #aaa;
+  font-size: bold;
+}
+
+/* place hover rules here to avoid stickiness effect on mobile devices */
+@media (hover: hover) {
+  .control-button:hover {
+    cursor: pointer;
+    filter: invert(0.5);
+  }
+  #row:hover,
+  #col:hover {
+    color: hsla(0, 0%, 100%, 0.872);
+    background-color: rgba(43, 43, 43, 0.94);
+  }
+  .close:hover {
+    color: rgb(26, 26, 26);
+    text-decoration: none;
+    cursor: pointer;
+  }
+  #alive:hover {
+    color: rgb(69, 131, 87);
+  }
+
+  #dead:hover {
+    color: rgb(138, 73, 66);
+  }
+  .cell:hover {
+    cursor: pointer;
+  }
+}
+
+/* For tablets */
+@media only screen and (max-width: 1100px) {
+  .popup {
+    width: 100vw;
+  }
+  #alert {
+    font-size: 4vw;
+  }
+  #modal-content {
+    font-size: 3.4vmin;
+  }
+  /* prevents overflow */
+  body {
+    height: 95vh;
+  }
+}

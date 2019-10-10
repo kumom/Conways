@@ -1,0 +1,75 @@
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>Conway's Game of Life</title>
+        <link href="https://fonts.googleapis.com/css?family=Baloo+Da" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="css/conways.css">
+    </head>
+
+    <body>
+        <div id="modal" class="popup">
+            <div id="modal-title">Conway's Game <a href="https://github.com/kumom/conways" target="_blank"
+                    rel="noopener"><img src="img/github.png"></a>f Life
+
+            </div>
+            <button id="modal-close" class="close">&times;</button>
+            <p id="modal-content">In this torus 2D grid, each cell as a "life" has 8 surrounding neighbors.
+                <font style="color:rgb(97, 184, 121);">Alive</font> cells die in the next round
+                if the
+                number of
+                their
+                alive neighbors is
+                strictly less than 2 or greater than 3.
+                <font style="color:rgb(189, 106, 98);">Dead</font> cells would come back to life if
+                they have exactly 3 alive neighbors.
+                These simple rules yet produce many interesting <a
+                    href="http://pi.math.cornell.edu/~lipa/mec/lesson6.html" target="_blank"
+                    rel="noopener">patterns</a>. You can try them out here
+                and see the evolution.<br>
+
+                <span style="font-size:130%;">&lt;Control&gt;</span><br>
+                &middot; Run the game by pressing "space" key or clicking <img src="img/run.svg"><br>
+                &middot; Make one step by pressing "->" key or clicking <img src="img/step.svg"><br>
+                &middot; Restart with a random pattern by clicking <img src="img/restart.svg"><br>
+                &middot; Click (and drag) to toggle the state of cells<br>
+                &middot; Modify the grid size in the bottom right corder
+            </p>
+        </div>
+
+        <div id="alert" class="popup">
+            <span id="alert-message"></span>
+            <button id="alert-close" class="close">&times;</button>
+        </div>
+
+        <div id="info-bar">
+            <span id="alive" class="info">#alive: 0</span>
+            <span id="dead" class="info">#dead: 0</span>
+        </div>
+        <div id="cell-grid">
+        </div>
+
+        <div id="control-bar">
+            <div id="control-button-container">
+                <button id="run" class="control-button" title="Run"><img id="run-icon" src="img/run.svg"></button>
+                <button id="step" class="control-button" title="Step"><img src="img/step.svg"></button>
+                <button id="restart" class="control-button" title="Restart"><img src="img/restart.svg"></button>
+                <button id="about" class="control-button" title="About"><img src="img/about.svg"></button>
+            </div>
+
+            <span id="total">#total:
+                <span id="row" contenteditable="true">0</span>
+                <span id="multiply">&times;</span>
+                <span id="col" contenteditable="true">0</span>
+                <span id="equal">=</span>
+                <span id="totalRes">0</span>
+            </span>
+        </div>
+
+        <script type="module" src="src/init.js"></script>
+        <script type="module" src="src/handlers.js"></script>
+    </body>
+
+</html>
