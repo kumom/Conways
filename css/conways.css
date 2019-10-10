@@ -108,40 +108,23 @@ body {
   display: none;
   grid: 1fr;
   grid-template-areas: "message";
-  justify-items: center;
-  align-items: center;
+  text-align: center;
   padding: 2vw;
   font-size: 3vw;
 }
 
 /* modal window */
 #modal {
-  display: grid;
-  grid: 1fr 8fr / 9fr;
-  grid-template-areas:
-    "title"
-    "modal-content";
-  justify-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   height: 100%;
   overflow: auto;
   text-align: center;
-  padding-top: 1vh;
-  padding-bottom: 1vh;
-}
-
-#modal-title {
-  grid-area: title;
-  align-self: end;
-  font-size: 4vmax;
-}
-
-#modal-title img {
-  height: 2.5vmax;
 }
 
 #modal-content {
-  grid-area: modal-content;
-  align-self: start;
   font-size: 2.2vmax;
   padding-left: 10vw;
   padding-right: 10vw;
@@ -154,7 +137,7 @@ body {
 
 #modal-content img {
   width: 2vmax;
-  transform: translate(0%, 18%);
+  vertical-align: sub;
 }
 
 /* do not apply these hover rules on touchscreen devices */

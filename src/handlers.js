@@ -67,7 +67,7 @@ window.addEventListener("click", event => {
   if (event.target !== modal) {
     if (event.target.id === "about") {
       let hidden = modal.style.display === "none";
-      modal.style.display = hidden ? "grid" : "none";
+      modal.style.display = hidden ? "flex" : "none";
     } else {
       modal.style.display = "none";
     }
@@ -204,7 +204,7 @@ function gridSizeHandler(event) {
     event.target.textContent = cellGrid[nodeId];
     // show alert box
     if (newVal > cellGrid["max" + nodeId]) {
-      alertBox.style.display = "grid";
+      alertBox.style.display = "inline-block";
       alertMsg.textContent = formAlertMessage(nodeId);
       // alert box disappears after 2000ms
       setTimeout(() => {

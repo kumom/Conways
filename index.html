@@ -11,11 +11,13 @@
 
     <body>
         <div id="modal" class="popup" onclick="this.style.display='none';">
-            <div id="modal-title">Conway's Game <a href="https://github.com/kumom/conways" target="_blank"
-                    rel="noopener"><img src="img/github.png"></a>f Life
 
-            </div>
-            <p id="modal-content">In this torus 2D grid, each cell as a "life" has 8 surrounding neighbors.
+            <p id="modal-content">
+                <span style="font-size: 3.5vmax; ">Conway's Game <a href="https://github.com/kumom/conways"
+                        target="_blank" rel="noopener"><img src="img/github.png"
+                            style="width: 2.8vmax; vertical-align: baseline;"></a>f
+                    Life</span><br>
+                In this torus 2D grid, each cell as a "life" has 8 surrounding neighbors.
                 <span style="color: rgb(97, 184, 121);">Alive</span> cells die in the next round
                 if the
                 number of
@@ -31,21 +33,20 @@
                 <span style="font-size:130%;">&lt;Control&gt;</span><br>
                 <!-- Do not display the following on touchscreen devices -->
                 <span class="forDesktop">
-                    <img src="img/run.svg"> or "space" key: run the game<br>
-                    <img src="img/step.svg"> or "->" key: make one step<br>
-                    <img src="img/restart.svg">: restart with a random pattern<br>
+                    <img src="img/run.svg"> or "space" key runs the game<br>
+                    <img src="img/step.svg"> or "->" key makes one step<br>
+                    <img src="img/restart.svg"> restarts with a random pattern<br>
                     Click and drag: toggle cell state<br>
                     P.S. You can change the grid size
                 </span>
                 <!-- Do not display the following on non-touchscreen devices -->
                 <span class="forMobile">
-                    <img src="img/run.svg"> : run the game<br>
-                    <img src="img/step.svg"> : make one step<br>
-                    <img src="img/restart.svg"> : restart with a random pattern<br>
+                    <img src="img/run.svg"> runs the game<br>
+                    <img src="img/step.svg"> makes one step<br>
+                    <img src="img/restart.svg"> restarts with a random pattern<br>
                     Tap and drag: toggle cell state<br>
                     P.S. You can change the grid size
                 </span>
-
 
             </p>
         </div>
