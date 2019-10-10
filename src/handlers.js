@@ -16,7 +16,7 @@ let run = document.getElementById("run"),
   step = document.getElementById("step"),
   controlButtons = document.getElementById("control-button-container"),
   modal = document.getElementById("modal"),
-  alertBox = document.getElementById("alert"),
+  alertBox = document.getElementById("alert-box"),
   alertMsg = document.getElementById("alert-message"),
   total = document.getElementById("total");
 
@@ -59,14 +59,8 @@ window.addEventListener("click", event => {
     initCellGrid();
   }
 
-  // If the user clicks close button or the area outside the modal window, close it
-  if (
-    (Array.from(modal.querySelectorAll("*")).includes(event.target) ||
-      event.target === modal) &&
-    event.target.className !== "close"
-  ) {
-    modal.style.display = "grid";
-  } else {
+  // If the user clicks the area outside the modal window, close it
+  if (event.target !== modal) {
     if (event.target.id === "about") {
       let hidden = modal.style.display === "none";
       modal.style.display = hidden ? "grid" : "none";
@@ -76,13 +70,7 @@ window.addEventListener("click", event => {
   }
 
   // If the user clicks close button the area outside the alert window, close it
-  if (
-    (Array.from(alertBox.querySelectorAll("*")).includes(event.target) ||
-      event.target === alertBox) &&
-    event.target.className !== "close"
-  ) {
-    alertBox.style.display = "grid";
-  } else {
+  if (event.target !== alertBox) {
     alertBox.style.display = "none";
   }
 });

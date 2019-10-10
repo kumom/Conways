@@ -10,12 +10,11 @@
     </head>
 
     <body>
-        <div id="modal" class="popup">
+        <div id="modal" class="popup" onclick="this.style.display='none';">
             <div id="modal-title">Conway's Game <a href="https://github.com/kumom/conways" target="_blank"
                     rel="noopener"><img src="img/github.png"></a>f Life
 
             </div>
-            <button id="modal-close" class="close">&times;</button>
             <p id="modal-content">In this torus 2D grid, each cell as a "life" has 8 surrounding neighbors.
                 <span style="color: rgb(97, 184, 121);">Alive</span> cells die in the next round
                 if the
@@ -53,9 +52,8 @@
             </p>
         </div>
 
-        <div id="alert" class="popup">
+        <div id="alert-box" class="popup" onclick="this.style.display='none';">
             <span id="alert-message"></span>
-            <button id="alert-close" class="close">&times;</button>
         </div>
 
         <div id="info-bar">

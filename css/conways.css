@@ -103,10 +103,10 @@ body {
 }
 
 /* alert message box */
-#alert {
+#alert-box {
   display: none;
-  grid: 1fr / 13fr 1fr;
-  grid-template-areas: "message close";
+  grid: 1fr;
+  grid-template-areas: "message";
   justify-items: center;
   align-items: center;
   padding: 2%;
@@ -116,10 +116,10 @@ body {
 /* modal window */
 #modal {
   display: grid;
-  grid: 1fr 5fr / 9fr 1fr;
+  grid: 1fr 5fr / 9fr;
   grid-template-areas:
-    "title close"
-    "modal-content modal-content";
+    "title"
+    "modal-content";
   justify-items: center;
   width: 100vmin;
   height: 100vh;
@@ -133,11 +133,10 @@ body {
   grid-area: title;
   align-self: end;
   font-size: 130%;
-  transform: translate(10%, 0%);
 }
 
 #modal-title img {
-  height: 4vh;
+  height: 4vmin;
 }
 
 #modal-content {
@@ -158,17 +157,6 @@ body {
   transform: translate(0%, 18%);
 }
 
-#modal-close {
-  align-self: center;
-  transform: translate(0%, 10%);
-}
-
-/* close buttons */
-.close {
-  grid-area: close;
-  color: #aaa;
-}
-
 /* do not apply these on touchscreen devices */
 @media (hover: hover) {
   button:hover {
@@ -181,10 +169,6 @@ body {
   #col:hover {
     color: hsla(0, 0%, 100%, 0.872);
     background-color: rgba(43, 43, 43, 0.94);
-  }
-  .close:hover {
-    color: rgb(26, 26, 26);
-    text-decoration: none;
   }
   #alive:hover {
     color: rgb(69, 131, 87);
@@ -202,7 +186,7 @@ body {
   .popup {
     width: 100vw;
   }
-  #alert {
+  #alert-box {
     font-size: 4vw;
   }
 }
