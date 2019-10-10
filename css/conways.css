@@ -21,7 +21,7 @@ body {
   height: 100%;
   color: rgba(43, 43, 43, 0.94);
   background: hsla(0, 0%, 100%, 0.872);
-  padding: 1%;
+  padding: 1vmin;
   font-size: 5vmin;
 }
 
@@ -67,8 +67,8 @@ body {
   /* shift images to the bottom of stack so that click events on buttons fire */
   position: relative;
   z-index: -100;
-  margin-top: 1vmin;
-  margin-right: 0.5vmin;
+  padding-top: 1.5vh;
+  padding-right: 1vw;
   width: 6vmin;
 }
 
@@ -93,6 +93,7 @@ body {
 
 /* pop up window */
 .popup {
+  width: 100%;
   position: absolute;
   z-index: 1;
   background-color: rgba(26, 25, 25, 0.8);
@@ -109,42 +110,41 @@ body {
   grid-template-areas: "message";
   justify-items: center;
   align-items: center;
-  padding: 2%;
-  font-size: 1.8vw;
+  padding: 2vw;
+  font-size: 3vw;
 }
 
 /* modal window */
 #modal {
   display: grid;
-  grid: 1fr 5fr / 9fr;
+  grid: 1fr 8fr / 9fr;
   grid-template-areas:
     "title"
     "modal-content";
   justify-items: center;
-  width: 100vmin;
-  height: 100vh;
+  height: 100%;
   overflow: auto;
   text-align: center;
-  padding-top: 1%;
-  padding-bottom: 1%;
+  padding-top: 1vh;
+  padding-bottom: 1vh;
 }
 
 #modal-title {
   grid-area: title;
   align-self: end;
-  font-size: 130%;
+  font-size: 4vmax;
 }
 
 #modal-title img {
-  height: 4vmin;
+  height: 2.5vmax;
 }
 
 #modal-content {
   grid-area: modal-content;
   align-self: start;
-  font-size: 70%;
-  padding-left: 10%;
-  padding-right: 10%;
+  font-size: 2.2vmax;
+  padding-left: 10vw;
+  padding-right: 10vw;
 }
 
 #modal-content a {
@@ -153,11 +153,11 @@ body {
 }
 
 #modal-content img {
-  width: 2.8vmin;
+  width: 2vmax;
   transform: translate(0%, 18%);
 }
 
-/* do not apply these on touchscreen devices */
+/* do not apply these hover rules on touchscreen devices */
 @media (hover: hover) {
   button:hover {
     cursor: pointer;
@@ -178,16 +178,6 @@ body {
   }
   .cell:hover {
     cursor: pointer;
-  }
-}
-
-/* For tablets */
-@media only screen and (max-width: 1100px) {
-  .popup {
-    width: 100vw;
-  }
-  #alert-box {
-    font-size: 4vw;
   }
 }
 
