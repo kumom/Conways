@@ -217,6 +217,6 @@ body {
   }
   /* prevents overflow for mobile devices */
   body {
-    max-height: 95%;
+    max-height: 100%;
   }
 }
