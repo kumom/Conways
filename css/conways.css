@@ -68,8 +68,8 @@ body {
   position: relative;
   z-index: -100;
   padding-top: 1.5vh;
-  padding-right: 1vw;
-  width: 6vmin;
+  padding-right: 1vmin;
+  width: 8vmin;
 }
 
 .active-button {
