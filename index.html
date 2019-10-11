@@ -6,68 +6,66 @@
         <meta http-equiv="X-UA-Compatible" content="ie=edge" />
         <title>Conway's Game of Life</title>
         <link href="https://fonts.googleapis.com/css?family=Baloo+Da" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="css/conways.css">
+        <link rel="stylesheet" type="text/css" href="style/conways.css">
     </head>
 
     <body>
-        <div id="modal" class="popup" onclick="this.style.display='none';">
-
-
-            <p id="modal-content" style="font-size: 3.5vmin; ">
-                <span style="font-size: 5vmin; ">Conway's Game <a href="https://github.com/kumom/conways"
-                        target="_blank" rel="noopener"><img src="img/github.png" style="width: 3vmin;"></a>f
-                    Life</span><br>
+        <div id="modal" class="popup">
+            <h1>Conway's Game <a href="https://github.com/kumom/conways" target="_blank" rel="noopener"><img
+                        src="img/github.png"></a>f
+                Life</h1>
+            <p>
                 In this torus 2D grid, each cell as a "life" has 8 surrounding neighbors.
-                <span style="color: rgb(97, 184, 121);">Alive</span> cells die in the next round
+                <span class="alive">Alive</span> cells die in the next round
                 if the
                 number of
                 their
                 alive neighbors is
                 strictly less than 2 or greater than 3.
-                <span style="color: rgb(189, 106, 98);">Dead</span> cells would come back to life if
-                they have exactly 3 alive neighbors.<br>
+                <span class="dead">Dead</span> cells would come back to life if
+                they have exactly 3 alive neighbors.
 
-                <span style="font-size:4vmin">&lt;Control&gt;</span><br>
+                <h2>&lt;Control&gt;</h2>
                 <!-- Do not display the following on touchscreen devices -->
-                <span class="forDesktop">
-                    <img src="img/run.svg" style="width: 3.5vmin;"> or "space" key runs the
+                <div class="forDesktop">
+                    <img class="run-icon"> or "space" key runs the
                     game<br>
-                    <img src="img/step.svg" style="width: 3.5vmin;"> or "->" key makes one step<br>
-                    <img src="img/restart.svg" style="width: 3.5vmin;"> restarts with a random
+                    <img class="step-icon"> or "->" key makes one step<br>
+                    <img class="restart-icon"> restarts with a random
                     pattern<br>
                     Click and drag: toggle cell state<br>
                     P.S. You can change the grid size
-                </span>
+                </div>
                 <!-- Do not display the following on non-touchscreen devices -->
-                <span class="forMobile">
-                    <img src="img/run.svg" style="width: 3.5vmin;"> runs the game<br>
-                    <img src="img/step.svg" style="width: 3.5vmin;"> makes one step<br>
-                    <img src="img/restart.svg" style="width: 3.5vmin;"> restarts with a random
+                <div class="forMobile">
+                    <img class="run-icon"> runs the game<br>
+                    <img class="step-icon"> makes one step<br>
+                    <img class="restart-icon"> restarts with a random
                     pattern<br>
                     Tap and drag: toggle cell state<br>
                     P.S. You can change the grid size
-                </span>
+                </div>
 
             </p>
         </div>
 
-        <div id="alert-box" class="popup" onclick="this.style.display='none';">
+        <div id="alert-box" class="popup">
             <span id="alert-message"></span>
         </div>
 
         <div id="info-bar">
-            <span id="alive" class="info">#alive: 0</span>
-            <span id="dead" class="info">#dead: 0</span>
+            <span class="alive">#alive: 0</span>
+            <span class="dead">#dead: 0</span>
         </div>
         <div id="cell-grid">
         </div>
 
         <div id="control-bar">
             <div id="control-button-container">
-                <button id="run" class="control-button" title="Run"><img id="run-icon" src="img/run.svg"></button>
-                <button id="step" class="control-button" title="Step"><img src="img/step.svg"></button>
-                <button id="restart" class="control-button" title="Restart"><img src="img/restart.svg"></button>
-                <button id="about" class="control-button" title="About"><img src="img/about.svg"></button>
+                <button id="run" class="control-button" title="Run"><img class="run-icon"></button>
+                <button id="step" class="control-button" title="Step"><img class="step-icon"></button>
+                <button id="restart" class="control-button" title="Restart"><img class="restart-icon"></button>
+                <button id="about" class="control-button" title="About"><img class="about-icon"></button>
             </div>
 
             <span id="total">#total:
@@ -75,7 +73,7 @@
                 <span>&times;</span>
                 <span id="col" contenteditable="true">0</span>
                 <span>=</span>
-                <span id="totalRes">0</span>
+                <span id="total-result">0</span>
             </span>
         </div>
 

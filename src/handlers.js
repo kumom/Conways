@@ -2,17 +2,18 @@
 
 import {
   numAliveNeighbor,
-  updateInfoBar,
-  formAlertMessage,
   setMaxRowCol,
-  toggleCellState,
-  resetRunningState
+  resetRunningState,
+  alive,
+  numInStr,
+  updateInfoBar
 } from "./helpers.js";
-import { aliveColor, deadColor } from "./setting.js";
-import { initCellGrid, fillCellGrid } from "./init.js";
+import { setCellGrid, setCells } from "./init.js";
 
-let cellGrid = document.getElementById("cell-grid");
-let run = document.getElementById("run"),
+let cellGrid = document.getElementById("cell-grid"),
+  aliveInfo = document.querySelector("#info-bar .alive"),
+  deadInfo = document.querySelector("#info-bar .dead"),
+  run = document.getElementById("run"),
   step = document.getElementById("step"),
   controlButtons = document.getElementById("control-button-container"),
   modal = document.getElementById("modal"),
@@ -29,24 +30,10 @@ cellGrid.addEventListener("mouseover", event => {
     toggleCellState(event.target);
   }
 });
-
 // equivalent with cellGrid mousedown/mouseover but for mobile
-// Solution from: https://stackoverflow.com/questions/3918842/how-to-find-out-the-actual-event-target-of-touchmove-javascript-event
+// solution from: https://stackoverflow.com/questions/3918842/how-to-find-out-the-actual-event-target-of-touchmove-javascript-event
 cellGrid.addEventListener("touchmove", touchToToggle);
 cellGrid.addEventListener("touchstart", touchToToggle);
-
-function touchToToggle(event) {
-  // get coordinates depending on pointer type:
-  let xcoord = event.touches ? event.touches[0].pageX : event.pageX,
-    ycoord = event.touches ? event.touches[0].pageY : event.pageY;
-  // get element in coordinates:
-  let target = document.elementFromPoint(xcoord, ycoord);
-  if (target !== cellGrid.lastTouchedTarget) {
-    toggleCellState(target);
-    cellGrid.lastTouchedTarget = target;
-  }
-  event.preventDefault();
-}
 
 /* Delegated handler for click events */
 window.addEventListener("click", event => {
@@ -59,14 +46,19 @@ window.addEventListener("click", event => {
   }
 
   if (event.target.id === "restart") {
-    initCellGrid();
+    setCells();
   }
 
   // If the user clicks the area outside the modal window, close it
   if (event.target !== modal) {
     if (event.target.id === "about") {
       let hidden = modal.style.display === "none";
-      modal.style.display = hidden ? "flex" : "none";
+      if (hidden) {
+        modal.style.display = "flex";
+        resetRunningState();
+      } else {
+        modal.style.display = "none";
+      }
     } else {
       modal.style.display = "none";
     }
@@ -76,8 +68,14 @@ window.addEventListener("click", event => {
   if (event.target !== alertBox) {
     alertBox.style.display = "none";
   }
+
+  if (event.target.className === "popup") {
+    event.target.style.display = "none";
+  }
 });
 
+/* Add .active-button effect and handler to pressing Space/Arrowright key */
+// for desktop
 window.addEventListener("keydown", event => {
   // when input box is not focused, space performs "run"
   if (event.key === " " && !document.activeElement.isContentEditable) {
@@ -94,14 +92,15 @@ window.addEventListener("keydown", event => {
     event.preventDefault();
   }
 });
-
-// equivalent with keydown event for mobile
+// for mobile
 controlButtons.addEventListener("touchstart", event => {
   if (event.target.className.includes("control-button")) {
     event.target.classList.add("active-button");
   }
 });
 
+/* Remove .active-button effect */
+// for desktop
 window.addEventListener("keyup", event => {
   // make keypress have the same visual effect as "hover"
   if (event.key === " ") {
@@ -112,8 +111,7 @@ window.addEventListener("keyup", event => {
     step.classList.remove("active-button");
   }
 });
-
-// equivalent with keyup event for mobile
+// for mobile
 controlButtons.addEventListener("touchend", () => {
   for (let node of controlButtons.children) {
     if (node.className.includes("control-button")) {
@@ -132,6 +130,38 @@ controlButtons.addEventListener("touchcancel", () => {
 /* Adjust allowed max row and col if window size changes */
 window.addEventListener("resize", setMaxRowCol);
 
+/* Clean up current cell grid and set up a new one */
+total.addEventListener("input", gridSizeHandler);
+
+function toggleCellState(cell) {
+  // check it's indeed a cell instead of the cell grid
+  if (cell.className.includes("cell")) {
+    let deadSoon = alive(cell),
+      aliveSoon = !deadSoon,
+      numAlive = numInStr(aliveInfo.textContent) - deadSoon + aliveSoon,
+      numDead = numInStr(deadInfo.textContent) + deadSoon - aliveSoon;
+    let currentState = alive(cell) ? "alive" : "dead",
+      nextState = alive(cell) ? "dead" : "alive";
+    cell.classList.add(nextState);
+    cell.classList.remove(currentState);
+    // update info bar
+    updateInfoBar(numAlive, numDead);
+  }
+}
+
+function touchToToggle(event) {
+  // get coordinates depending on pointer type:
+  let xcoord = event.touches ? event.touches[0].pageX : event.pageX,
+    ycoord = event.touches ? event.touches[0].pageY : event.pageY;
+  // get element in coordinates:
+  let target = document.elementFromPoint(xcoord, ycoord);
+  if (target !== cellGrid.lastTouchedTarget) {
+    toggleCellState(target);
+    cellGrid.lastTouchedTarget = target;
+  }
+  event.preventDefault();
+}
+
 function stepHandler(event) {
   let deadSoon = [],
     aliveSoon = [];
@@ -140,40 +170,18 @@ function stepHandler(event) {
     for (let j = 0; j < cellGrid.col; j++) {
       let cell = document.getElementById(`${i}-${j}`);
       let x = numAliveNeighbor(i, j);
-
-      if (cell.alive) {
-        if (x < 2 || x > 3) {
-          deadSoon.push(cell);
-        }
-      } else {
-        if (x === 3) {
-          aliveSoon.push(cell);
-        }
+      if (alive(cell) && (x < 2 || x > 3)) {
+        deadSoon.push(cell);
+      }
+      if (!alive(cell) && x === 3) {
+        aliveSoon.push(cell);
       }
     }
   }
 
-  for (let cell of deadSoon) {
-    cell.alive = false;
-    cell.style.backgroundColor = deadColor;
+  for (let cell of deadSoon.concat(aliveSoon)) {
+    toggleCellState(cell);
   }
-
-  for (let cell of aliveSoon) {
-    cell.alive = true;
-    cell.style.backgroundColor = aliveColor;
-  }
-
-  // update info bar
-  let aliveBefore = Number(
-    document.getElementById("alive").textContent.match(/\d+/)[0]
-  );
-
-  let deadBefore = Number(
-    document.getElementById("dead").textContent.match(/\d+/)[0]
-  );
-  let alive = aliveBefore - deadSoon.length + aliveSoon.length;
-  let dead = deadBefore - aliveSoon.length + deadSoon.length;
-  updateInfoBar(alive, dead);
 
   // clean up for the next round
   deadSoon = [];
@@ -185,33 +193,37 @@ function runHandler(event) {
     resetRunningState();
   } else {
     cellGrid.running = setInterval(stepHandler, 500);
-    document.getElementById("run-icon").src = "img/pause.svg";
+    document.querySelector("#run .run-icon").className = "pause-icon";
     run.title = "Pause";
   }
 }
 
-/* Handler for input #row and #col */
-
 function gridSizeHandler(event) {
   let nodeId = event.target.id, // "row" or "col"
     newVal = Number(event.target.textContent),
-    oldVal = cellGrid[nodeId];
-  if (isNaN(newVal) || oldVal === newVal || newVal > cellGrid["max" + nodeId]) {
-    event.target.textContent = cellGrid[nodeId];
-    // show alert box
-    if (newVal > cellGrid["max" + nodeId]) {
-      alertBox.style.display = "inline-block";
-      alertMsg.textContent = formAlertMessage(nodeId);
-      // alert box disappears after 2000ms
-      setTimeout(() => {
-        alertBox.style.display = "none";
-      }, 2000);
-    }
+    oldVal = cellGrid[nodeId],
+    error = false;
+
+  if (oldVal === newVal) return;
+  if (isNaN(newVal) || newVal < 0) {
+    alertMsg.textContent = "We only accept nonnegative numbers ;)";
+    error = true;
+  }
+  if (newVal > cellGrid["max" + nodeId]) {
+    alertMsg.textContent = "Cell " + nodeId + " cannot be less than 10 pixels";
+    error = true;
+  }
+  if (error) {
+    // fall back to old value
+    event.target.textContent = oldVal;
+    // show alert box and make it disappear after 2000ms
+    alertBox.style.display = "flex";
+    setTimeout(() => {
+      alertBox.style.display = "none";
+    }, 2000);
   } else {
     cellGrid[nodeId] = newVal;
-    fillCellGrid(cellGrid.row, cellGrid.col);
-    initCellGrid();
+    setCellGrid(cellGrid.row, cellGrid.col);
+    setCells();
   }
 }
-
-total.addEventListener("input", gridSizeHandler);

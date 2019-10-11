@@ -1,26 +1,27 @@
 "use strict";
 
-import { aliveColor, deadColor, cellHeight, cellWidth } from "./setting.js";
-import {
-  initRowCol,
-  setMaxRowCol,
-  updateInfoBar,
-  resetRunningState
-} from "./helpers.js";
+import { setMaxRowCol, updateInfoBar, resetRunningState } from "./helpers.js";
 
 let cellGrid = document.getElementById("cell-grid");
 
-export function fillCellGrid(row, col) {
+export function setCellGrid(row, col) {
+  resetRunningState();
   cellGrid.innerHTML = "";
-  if (!row && !col) {
-    [cellGrid.row, cellGrid.col] = initRowCol(cellHeight, cellWidth);
-    [row, col] = [cellGrid.row, cellGrid.col];
+  // Help init cell grid's row and col according to window size
+  if (typeof row === "undefined" || typeof col === "undefined") {
+    let cellWidth, cellHeight;
+    let scaler = window.screen.availWidth < 800 ? 0.06 : 0.03;
+    cellWidth = cellHeight =
+      Math.max(window.innerWidth, window.innerHeight) * scaler;
+    cellGrid.row = ~~(cellGrid.offsetHeight / cellHeight);
+    cellGrid.col = ~~(cellGrid.offsetWidth / cellWidth);
+  } else {
+    [cellGrid.row, cellGrid.col] = [row, col];
   }
-  cellGrid.style.gridTemplateRows = `repeat(${row}, 1fr)`;
-  cellGrid.style.gridTemplateColumns = `repeat(${col}, 1fr)`;
-
-  for (let i = 0; i < row; i++) {
-    for (let j = 0; j < col; j++) {
+  cellGrid.style.gridTemplateRows = `repeat(${cellGrid.row}, 1fr)`;
+  cellGrid.style.gridTemplateColumns = `repeat(${cellGrid.col}, 1fr)`;
+  for (let i = 0; i < cellGrid.row; i++) {
+    for (let j = 0; j < cellGrid.col; j++) {
       // Each cell is represented as a span elem
       let cell = document.createElement("span");
       cell.className = "cell";
@@ -28,26 +29,33 @@ export function fillCellGrid(row, col) {
       cellGrid.appendChild(cell);
     }
   }
+  setMaxRowCol();
+  document.getElementById("row").textContent = cellGrid.row;
+  document.getElementById("col").textContent = cellGrid.col;
+  document.getElementById("total-result").textContent =
+    cellGrid.row * cellGrid.col;
 }
 
-/* Configure cell grid and info bar */
-export function initCellGrid() {
-  setMaxRowCol();
+/* initialize cell states and info bar */
+export function setCells() {
   resetRunningState();
   let alive = 0,
     dead = 0;
-  for (let cell of cellGrid.childNodes) {
-    let aliveProb = Math.random();
-    cell.alive = aliveProb > 0.5 ? true : false;
-    cell.style.backgroundColor = cell.alive ? aliveColor : deadColor;
-    if (cell.alive) {
+  for (let cell of cellGrid.children) {
+    if (Math.random() > 0.5) {
+      cell.classList.add("alive");
       alive += 1;
+      // if cell state has been set before, remove old state
+      cell.classList.remove("dead");
     } else {
+      cell.classList.add("dead");
       dead += 1;
+      // if cell state has been set before, remove old state
+      cell.classList.remove("alive");
     }
+    updateInfoBar(alive, dead);
   }
-  updateInfoBar(alive, dead);
 }
 
-fillCellGrid();
-initCellGrid();
+setCellGrid();
+setCells();

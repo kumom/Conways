@@ -1,80 +1,35 @@
 "use strict";
 
-import { aliveColor, deadColor } from "./setting.js";
-
 let cellGrid = document.getElementById("cell-grid");
+let aliveInfo = document.querySelector("#info-bar .alive"),
+  deadInfo = document.querySelector("#info-bar .dead");
+
+export let alive = cell => cell.className.includes("alive");
+export let numInStr = str => Number(str.match(/\d+/)[0]);
 
 export function numAliveNeighbor(i, j) {
   let row = document.getElementById("cell-grid").row,
     col = document.getElementById("cell-grid").col;
-  let leftIdx = (j - 1 + col) % col,
-    rightIdx = (j + 1) % col,
-    topIdx = (i - 1 + row) % row,
-    bottomIdx = (i + 1) % row;
-  let left = document.getElementById(`${i}-${leftIdx}`),
-    right = document.getElementById(`${i}-${rightIdx}`),
-    top = document.getElementById(`${topIdx}-${j}`),
-    bottom = document.getElementById(`${bottomIdx}-${j}`),
-    topRight = document.getElementById(`${topIdx}-${rightIdx}`),
-    topLeft = document.getElementById(`${topIdx}-${leftIdx}`),
-    bottomRight = document.getElementById(`${bottomIdx}-${rightIdx}`),
-    bottomLeft = document.getElementById(`${bottomIdx}-${leftIdx}`);
+  let totalAlive = 0;
 
-  return (
-    left.alive +
-    right.alive +
-    top.alive +
-    bottom.alive +
-    topRight.alive +
-    topLeft.alive +
-    bottomRight.alive +
-    bottomLeft.alive
-  );
-}
-
-export function updateInfoBar(alive, dead) {
-  if (!alive && !dead) {
-    alive = 0;
-    dead = 0;
-    for (let cell of cellGrid.children) {
-      if (cell.alive) {
-        alive += 1;
-      } else {
-        dead += 1;
-      }
+  for (let a of [(i - 1 + row) % row, i, (i + 1) % row]) {
+    for (let b of [(j - 1 + col) % col, i, (j + 1) % row]) {
+      let neighbor = document.getElementById(`${a}-${b}`);
+      totalAlive += alive(neighbor);
     }
   }
-  document.getElementById("alive").textContent = "#alive: " + alive;
-  document.getElementById("dead").textContent = "#dead: " + dead;
-  document.getElementById("col").textContent = cellGrid.col;
-  document.getElementById("row").textContent = cellGrid.row;
-  document.getElementById("totalRes").textContent = cellGrid.col * cellGrid.row;
+
+  return totalAlive;
 }
 
-export function toggleCellState(cell) {
-  // check it's indeed a cell instead of the cell grid
-  if (cell.className === "cell") {
-    cell.alive = !cell.alive;
-    cell.style.backgroundColor = cell.alive ? aliveColor : deadColor;
-    // update info bar
-    updateInfoBar();
+export function updateInfoBar(numAlive, numDead) {
+  if (typeof numAlive === "undefined" || typeof numDead === "undefined") {
+    // Number of alive/dead cells are the one that has class name "alive"/"dead" minus the one from the info bar
+    numAlive = document.querySelectorAll(".alive").length - 1;
+    numDead = document.querySelectorAll(".dead").length - 1;
   }
-}
-
-// Help init #row and #col for different cellgrid(window) size and different cell size
-export function initRowCol(cellHeight, cellWidth) {
-  let row = ~~(cellGrid.offsetHeight / cellHeight),
-    col = ~~(cellGrid.offsetWidth / cellWidth);
-  return [row, col];
-}
-
-export function formAlertMessage(modifying) {
-  if (modifying === "row") {
-    return "Cell height cannot be less than 10 pixels";
-  }
-  if (modifying === "col") {
-    return "Cell width cannot be less than 10 pixels";
-  }
+  aliveInfo.textContent = "#alive: " + numAlive;
+  deadInfo.textContent = "#dead: " + numDead;
 }
 
 /* Calculate allowed max row and col */
@@ -85,8 +40,10 @@ export function setMaxRowCol() {
 }
 
 export function resetRunningState() {
-  clearInterval(cellGrid.running);
-  cellGrid.running = null;
-  document.getElementById("run-icon").src = "img/run.svg";
-  document.getElementById("run").title = "Run";
+  if (cellGrid.running) {
+    clearInterval(cellGrid.running);
+    cellGrid.running = null;
+    document.querySelector("#run .pause-icon").className = "run-icon";
+    document.getElementById("run").title = "Run";
+  }
 }
