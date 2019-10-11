@@ -79,8 +79,9 @@ button {
   left: 50%;
   top: 50%;
   @include transform(translate(-50%, -50%));
-  padding-left: 10vw;
-  padding-right: 10vw;
+
+  padding-left: 8vw;
+  padding-right: 8vw;
   overflow: scroll;
   img {
     vertical-align: middle;
@@ -102,7 +103,10 @@ button {
 }
 
 #alert-box {
-  font-size: 2vw;
+  display: none;
+  padding-top: 1vh;
+  padding-bottom: 1vh;
+  font-size: 5vh;
 }
 
 body {

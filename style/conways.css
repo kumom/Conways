@@ -60,8 +60,8 @@ button:focus {
   -webkit-transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
-  padding-left: 10vw;
-  padding-right: 10vw;
+  padding-left: 8vw;
+  padding-right: 8vw;
   overflow: scroll;
 }
 .popup img {
@@ -81,7 +81,10 @@ button:focus {
   width: 4vmin;
 }
 #alert-box {
-  font-size: 2vw;
+  display: none;
+  padding-top: 1vh;
+  padding-bottom: 1vh;
+  font-size: 5vh;
 }
 body {
   display: grid;

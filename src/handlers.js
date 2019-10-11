@@ -62,7 +62,7 @@ document.addEventListener("click", event => {
   }
 });
 // comment: this is ugly appended code to fix the problem
-//          that click events do not fire for <div> elements when using event delegation
+//          that click events seems not to fire for <div> elements when using event delegation
 modal.addEventListener("click", () => {
   modal.style.display = "none";
 });
@@ -206,7 +206,7 @@ function gridSizeHandler(event) {
     error = true;
   }
   if (newVal > cellGrid["max" + nodeId]) {
-    alertMsg.textContent = "Cell " + nodeId + " cannot be less than 10 pixels";
+    alertMsg.textContent = "Cell side cannot be less than 10 pixels";
     error = true;
   }
   if (error) {
