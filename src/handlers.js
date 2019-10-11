@@ -37,7 +37,7 @@ let cellGrid = document.getElementById("cell-grid"),
 });
 
 /* Delegated handler for click/tap events */
-window.addEventListener("click", event => {
+document.addEventListener("click", event => {
   switch (event.target.id) {
     case "step":
       stepHandler(event);
@@ -53,6 +53,7 @@ window.addEventListener("click", event => {
       break;
     case "about":
       if (cellGrid.running) {
+        stopRunning();
       }
       modal.style.display = "flex";
       break;
@@ -60,6 +61,11 @@ window.addEventListener("click", event => {
       modal.style.display = "none";
       alertBox.style.display = "none";
   }
+});
+// comment: this is ugly code fix the problem that click events do not fire for <div> elements
+document.addEventListener("touchend", () => {
+  modal.style.display = "none";
+  alertBox.style.display = "none";
 });
 
 /* Add active button effect and handler to pressing Space/Arrowright key */
