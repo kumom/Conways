@@ -58,14 +58,13 @@ document.addEventListener("click", event => {
       modal.style.display = "flex";
       break;
     default:
-      modal.style.display = "none";
       alertBox.style.display = "none";
   }
 });
-// comment: this is ugly code fix the problem that click events do not fire for <div> elements
-document.addEventListener("touchend", () => {
+// comment: this is ugly appended code to fix the problem
+//          that click events do not fire for <div> elements when using event delegation
+modal.addEventListener("click", () => {
   modal.style.display = "none";
-  alertBox.style.display = "none";
 });
 
 /* Add active button effect and handler to pressing Space/Arrowright key */
