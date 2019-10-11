@@ -1,13 +1,12 @@
 "use strict";
 
-import { setMaxRowCol, updateInfoBar, resetRunningState } from "./helpers.js";
+import { setMaxRowCol, updateInfoBar } from "./helpers.js";
 
 let cellGrid = document.getElementById("cell-grid");
 
 export function setCellGrid(row, col) {
-  resetRunningState();
   cellGrid.innerHTML = "";
-  // Help init cell grid's row and col according to window size
+  // Help init cell grid's row and col according to document size
   if (typeof row === "undefined" || typeof col === "undefined") {
     let cellWidth, cellHeight;
     let scaler = window.screen.availWidth < 800 ? 0.06 : 0.03;
@@ -38,22 +37,19 @@ export function setCellGrid(row, col) {
 
 /* initialize cell states and info bar */
 export function setCells() {
-  resetRunningState();
   let alive = 0,
     dead = 0;
   for (let cell of cellGrid.children) {
     if (Math.random() > 0.5) {
-      cell.classList.add("alive");
+      cell.dataset.state = "alive";
       alive += 1;
-      // if cell state has been set before, remove old state
-      cell.classList.remove("dead");
     } else {
-      cell.classList.add("dead");
+      cell.dataset.state = "dead";
       dead += 1;
-      // if cell state has been set before, remove old state
-      cell.classList.remove("alive");
     }
-    updateInfoBar(alive, dead);
+    cellGrid.alive = alive;
+    cellGrid.dead = dead;
+    updateInfoBar();
   }
 }
 

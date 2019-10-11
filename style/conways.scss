@@ -1,3 +1,6 @@
+$alive-color: #61b879;
+$dead-color: #bd6a62;
+
 @mixin transform($property) {
   -webkit-transform: $property;
   -ms-transform: $property;
@@ -21,14 +24,6 @@
   padding-bottom: 1vh;
 }
 
-@mixin alive-color($property) {
-  #{$property}: rgb(97, 184, 121);
-}
-
-@mixin dead-color($property) {
-  #{$property}: rgb(189, 106, 98);
-}
-
 $buttons: run pause step restart about;
 @each $button in $buttons {
   .#{$button}-icon {
@@ -36,7 +31,7 @@ $buttons: run pause step restart about;
   }
 }
 
-.active-button {
+[data-button-state="active"] {
   filter: invert(0.5);
 }
 
@@ -55,6 +50,12 @@ $buttons: run pause step restart about;
   }
 }
 
+[style-alive] {
+  color: $alive-color;
+}
+[style-dead] {
+  color: $dead-color;
+}
 button {
   all: unset;
   transition: all 0.2s;
@@ -88,20 +89,20 @@ button {
 
 #modal {
   height: 100%;
-  font-size: 3.2vmin;
+  font-size: 4vmin;
   h1 {
     font-size: 5vmin;
   }
   h2 {
-    font-size: 3.5vmin;
+    font-size: 4.5vmin;
   }
   img {
-    width: 3.2vmin;
+    width: 4vmin;
   }
 }
 
 #alert-box {
-  font-size: 3vw;
+  font-size: 2vw;
 }
 
 body {
@@ -115,12 +116,6 @@ body {
   height: 100%;
   color: rgba(43, 43, 43, 0.94);
   background: hsla(0, 0%, 100%, 0.872);
-  .alive {
-    @include alive-color(color);
-  }
-  .dead {
-    @include dead-color(color);
-  }
 }
 
 #info-bar {
@@ -135,12 +130,12 @@ body {
   .cell {
     cursor: pointer;
     box-shadow: inset 2px 2px 2px white, 0px 1px 3px rgba(116, 115, 115, 0.5);
-  }
-  .alive {
-    @include alive-color(background-color);
-  }
-  .dead {
-    @include dead-color(background-color);
+    &[data-state="alive"] {
+      background-color: $alive-color;
+    }
+    &[data-state="dead"] {
+      background-color: $dead-color;
+    }
   }
 }
 
@@ -166,7 +161,6 @@ body {
     filter: invert(0.5);
   }
 }
-
 @media (hover: none) {
   .forDesktop {
     display: none;

@@ -13,7 +13,7 @@
 .about-icon {
   content: url("../img/about.svg");
 }
-.active-button {
+[data-button-state="active"] {
   filter: invert(0.5);
 }
 * {
@@ -29,6 +29,12 @@
 * [contenteditable="true"]:hover {
   color: rgba(255, 255, 255, 0.872);
   background-color: rgba(43, 43, 43, 0.94);
+}
+[style-alive] {
+  color: #61b879;
+}
+[style-dead] {
+  color: #bd6a62;
 }
 button {
   all: unset;
@@ -63,19 +69,19 @@ button:focus {
 }
 #modal {
   height: 100%;
-  font-size: 3.2vmin;
+  font-size: 4vmin;
 }
 #modal h1 {
   font-size: 5vmin;
 }
 #modal h2 {
-  font-size: 3.5vmin;
+  font-size: 4.5vmin;
 }
 #modal img {
-  width: 3.2vmin;
+  width: 4vmin;
 }
 #alert-box {
-  font-size: 3vw;
+  font-size: 2vw;
 }
 body {
   display: grid;
@@ -85,12 +91,6 @@ body {
   height: 100%;
   color: rgba(43, 43, 43, 0.94);
   background: rgba(255, 255, 255, 0.872);
-}
-body .alive {
-  color: #61b879;
-}
-body .dead {
-  color: #bd6a62;
 }
 #info-bar {
   display: flex;
@@ -110,10 +110,10 @@ body .dead {
   cursor: pointer;
   box-shadow: inset 2px 2px 2px white, 0px 1px 3px rgba(116, 115, 115, 0.5);
 }
-#cell-grid .alive {
+#cell-grid .cell[data-state="alive"] {
   background-color: #61b879;
 }
-#cell-grid .dead {
+#cell-grid .cell[data-state="dead"] {
   background-color: #bd6a62;
 }
 #control-bar {

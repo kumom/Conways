@@ -16,13 +16,13 @@
                 Life</h1>
             <p>
                 In this torus 2D grid, each cell as a "life" has 8 surrounding neighbors.
-                <span class="alive">Alive</span> cells die in the next round
+                <span style-alive>Alive</span> cells die in the next round
                 if the
                 number of
                 their
                 alive neighbors is
                 strictly less than 2 or greater than 3.
-                <span class="dead">Dead</span> cells would come back to life if
+                <span style-dead>Dead</span> cells would come back to life if
                 they have exactly 3 alive neighbors.
 
                 <h2>&lt;Control&gt;</h2>
@@ -54,18 +54,22 @@
         </div>
 
         <div id="info-bar">
-            <span class="alive">#alive: 0</span>
-            <span class="dead">#dead: 0</span>
+            <span id="alive-info" style-alive>#alive: 0</span>
+            <span id="dead-info" style-dead>#dead: 0</span>
         </div>
         <div id="cell-grid">
         </div>
 
         <div id="control-bar">
             <div id="control-button-container">
-                <button id="run" class="control-button" title="Run"><img class="run-icon"></button>
-                <button id="step" class="control-button" title="Step"><img class="step-icon"></button>
-                <button id="restart" class="control-button" title="Restart"><img class="restart-icon"></button>
-                <button id="about" class="control-button" title="About"><img class="about-icon"></button>
+                <button id="run" class="control-button" title="Run" data-button-state="inactive"><img
+                        class="run-icon"></button>
+                <button id="step" class="control-button" title="Step" data-button-state="inactive"><img
+                        class="step-icon"></button>
+                <button id="restart" class="control-button" title="Restart" data-button-state="inactive"><img
+                        class="restart-icon"></button>
+                <button id="about" class="control-button" title="About" data-button-state="inactive"><img
+                        class="about-icon"></button>
             </div>
 
             <span id="total">#total:
