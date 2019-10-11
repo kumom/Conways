@@ -36,31 +36,34 @@ let cellGrid = document.getElementById("cell-grid"),
   });
 });
 
-/* Delegated handler for click events */
-document.onclick = event => {
-  switch (event.target.id) {
-    case "step":
-      stepHandler(event);
-      break;
-    case "run":
-      runHandler();
-      break;
-    case "restart":
-      if (cellGrid.running) {
-        stopRunning();
-      }
-      setCells();
-      break;
-    case "about":
-      if (cellGrid.running) {
-      }
-      modal.style.display = "flex";
-      break;
-    default:
-      modal.style.display = "none";
-      alertBox.style.display = "none";
-  }
-};
+/* Delegated handler for click/tap events */
+// comment: "touchend" tries to capture tap events on touchscreen devices because "click" events do not fire
+["click", "touchend"].forEach(eventType => {
+  document.addEventListener(eventType, event => {
+    switch (event.target.id) {
+      case "step":
+        stepHandler(event);
+        break;
+      case "run":
+        runHandler();
+        break;
+      case "restart":
+        if (cellGrid.running) {
+          stopRunning();
+        }
+        setCells();
+        break;
+      case "about":
+        if (cellGrid.running) {
+        }
+        modal.style.display = "flex";
+        break;
+      default:
+        modal.style.display = "none";
+        alertBox.style.display = "none";
+    }
+  });
+});
 
 /* Add active button effect and handler to pressing Space/Arrowright key */
 // for desktop
