@@ -122,10 +122,6 @@ body {
   height: 100%;
   overflow: auto;
   text-align: center;
-}
-
-#modal-content {
-  font-size: 2.2vmax;
   padding-left: 10vw;
   padding-right: 10vw;
 }
@@ -133,11 +129,6 @@ body {
 #modal-content a {
   color: inherit;
   text-decoration: underline;
-}
-
-#modal-content img {
-  width: 2vmax;
-  vertical-align: sub;
 }
 
 /* do not apply these hover rules on touchscreen devices */
