@@ -120,10 +120,14 @@ body {
   align-items: center;
   justify-content: center;
   height: 100%;
-  overflow: auto;
+  overflow: scroll;
   text-align: center;
   padding-left: 10vw;
   padding-right: 10vw;
+}
+
+#modal * {
+  vertical-align: middle;
 }
 
 #modal-content a {

@@ -32,7 +32,10 @@ cellGrid.addEventListener("mouseover", event => {
 
 // equivalent with cellGrid mousedown/mouseover but for mobile
 // Solution from: https://stackoverflow.com/questions/3918842/how-to-find-out-the-actual-event-target-of-touchmove-javascript-event
-cellGrid.addEventListener("touchmove", event => {
+cellGrid.addEventListener("touchmove", touchToToggle);
+cellGrid.addEventListener("touchstart", touchToToggle);
+
+function touchToToggle(event) {
   // get coordinates depending on pointer type:
   let xcoord = event.touches ? event.touches[0].pageX : event.pageX,
     ycoord = event.touches ? event.touches[0].pageY : event.pageY;
@@ -43,11 +46,7 @@ cellGrid.addEventListener("touchmove", event => {
     cellGrid.lastTouchedTarget = target;
   }
   event.preventDefault();
-});
-
-cellGrid.addEventListener("touchstart", event => {
-  event.preventDefault();
-});
+}
 
 /* Delegated handler for click events */
 window.addEventListener("click", event => {
