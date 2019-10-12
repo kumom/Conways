@@ -12,15 +12,9 @@ export function numAliveNeighbor(i, j) {
 
   for (let a of [mod(i - 1, row), i, mod(i + 1, row)]) {
     for (let b of [mod(j - 1, col), j, mod(j + 1, col)]) {
-      if (a === i && b === j) {
-        continue;
-      } else {
+      if (a !== i || b !== j) {
         let neighbor = document.getElementById(`${a}-${b}`);
         count += isAlive(neighbor);
-        console.log(
-          `${i}-${j}, neightbor ${a}-${b} alive? ${isAlive(neighbor)}`
-        );
-        console.log(`${neighbor}`);
       }
     }
   }
