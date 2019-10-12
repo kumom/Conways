@@ -152,8 +152,8 @@ function stepHandler(event) {
     aliveSoon = [];
 
   for (let cell of cellGrid.children) {
-    let [i, j] = cell.id.match(/\d/g),
-      x = numAliveNeighbor(Number(i), Number(j));
+    let [i, j] = cell.id.match(/\d+/g);
+    let x = numAliveNeighbor(Number(i), Number(j));
     if (isAlive(cell) && (x < 2 || x > 3)) {
       deadSoon.push(cell);
     }
