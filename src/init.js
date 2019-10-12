@@ -37,18 +37,18 @@ export function setCellGrid(row, col) {
 
 /* initialize cell states and info bar */
 export function setCells() {
-  let alive = 0,
-    dead = 0;
+  let numAlive = 0,
+    numDead = 0;
   for (let cell of cellGrid.children) {
     if (Math.random() > 0.5) {
       cell.dataset.state = "alive";
-      alive += 1;
+      numAlive += 1;
     } else {
       cell.dataset.state = "dead";
-      dead += 1;
+      numDead += 1;
     }
-    cellGrid.alive = alive;
-    cellGrid.dead = dead;
+    cellGrid.alive = numAlive;
+    cellGrid.dead = numDead;
     updateInfoBar();
   }
 }
