@@ -29,8 +29,8 @@ export function setCellGrid(row, col) {
     }
   }
   setMaxRowCol();
-  document.getElementById("row").textContent = cellGrid.row;
-  document.getElementById("col").textContent = cellGrid.col;
+  document.getElementById("row").value = cellGrid.row;
+  document.getElementById("col").value = cellGrid.col;
   document.getElementById("total-result").textContent =
     cellGrid.row * cellGrid.col;
 }

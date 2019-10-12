@@ -22,14 +22,6 @@
   margin: 0;
   padding: 0;
 }
-* [contenteditable="true"] {
-  padding-left: 0.3vmin;
-  padding-right: 0.3vmin;
-}
-* [contenteditable="true"]:hover {
-  color: rgba(255, 255, 255, 0.872);
-  background-color: rgba(43, 43, 43, 0.94);
-}
 [style-alive] {
   color: #61b879;
 }
@@ -134,6 +126,21 @@ body {
   padding-top: 1.5vh;
   padding-right: 1vmin;
   width: 7vmin;
+}
+#control-bar input[type="text"] {
+  vertical-align: middle;
+  font-size: inherit;
+  border: 0;
+  text-align: center;
+  color: inherit;
+  width: 3ch;
+}
+#control-bar input[type="text"]:hover {
+  color: rgba(255, 255, 255, 0.872);
+  background-color: rgba(43, 43, 43, 0.94);
+}
+#control-bar input[type="text"]:focus {
+  outline: 0;
 }
 @media (hover: hover) {
   .forMobile {

@@ -40,14 +40,6 @@ $buttons: run pause step restart about;
   font-family: "Baloo Da", sans-serif;
   margin: 0;
   padding: 0;
-  [contenteditable="true"] {
-    padding-left: 0.3vmin;
-    padding-right: 0.3vmin;
-    &:hover {
-      color: hsla(0, 0%, 100%, 0.872);
-      background-color: rgba(43, 43, 43, 0.94);
-    }
-  }
 }
 
 [style-alive] {
@@ -56,6 +48,7 @@ $buttons: run pause step restart about;
 [style-dead] {
   color: $dead-color;
 }
+
 button {
   all: unset;
   transition: all 0.2s;
@@ -153,6 +146,21 @@ body {
     padding-top: 1.5vh;
     padding-right: 1vmin;
     width: 7vmin;
+  }
+  input[type="text"] {
+    vertical-align: middle;
+    font-size: inherit;
+    border: 0;
+    text-align: center;
+    color: inherit;
+    width: 3ch;
+    &:hover {
+      color: hsla(0, 0%, 100%, 0.872);
+      background-color: rgba(43, 43, 43, 0.94);
+    }
+    &:focus {
+      outline: 0;
+    }
   }
 }
 

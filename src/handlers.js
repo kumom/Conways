@@ -195,7 +195,7 @@ function startRunning() {
 
 function gridSizeHandler(event) {
   let nodeId = event.target.id, // "row" or "col"
-    newVal = Number(event.target.textContent),
+    newVal = Number(event.target.value),
     oldVal = cellGrid[nodeId];
   let error = false,
     alertMsg = document.getElementById("alert-message");
@@ -211,7 +211,7 @@ function gridSizeHandler(event) {
   }
   if (error) {
     // fall back to old value
-    event.target.textContent = oldVal;
+    event.target.value = oldVal;
     // show alert box and make it disappear after 2000ms
     alertBox.style.display = "flex";
     setTimeout(() => {
