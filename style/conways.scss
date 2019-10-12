@@ -1,10 +1,10 @@
 $alive-color: #61b879;
 $dead-color: #bd6a62;
 
-@mixin transform($property) {
-  -webkit-transform: $property;
-  -ms-transform: $property;
-  transform: $property;
+@mixin for-all-vendor($property, $value) {
+  -webkit-#{$property}: $value;
+  -ms-#{$property}: $value;
+  #{$property}: $value;
 }
 
 @mixin header-footer {
@@ -71,7 +71,7 @@ button {
   width: 100%;
   left: 50%;
   top: 50%;
-  @include transform(translate(-50%, -50%));
+  @include for-all-vendor(transform, translate(-50%, -50%));
 
   padding-left: 8vw;
   padding-right: 8vw;
@@ -147,10 +147,10 @@ body {
     padding-right: 1vmin;
     width: 7vmin;
   }
-  input[type="text"] {
+  input[type="number"] {
+    all: unset;
     vertical-align: middle;
     font-size: inherit;
-    border: 0;
     text-align: center;
     color: inherit;
     width: 3ch;
@@ -160,6 +160,12 @@ body {
     }
     &:focus {
       outline: 0;
+    }
+    // hide arrow
+    -moz-appearance: textfield;
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      @include for-all-vendor(appearance, none);
     }
   }
 }

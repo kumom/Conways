@@ -71,14 +71,17 @@ modal.addEventListener("click", () => {
 // for desktop
 document.addEventListener("keydown", event => {
   // when input box is not focused, space performs "run"
-  if (event.key === " " && !document.activeElement.isContentEditable) {
+  if (event.key === " " && document.activeElement.tagName !== "INPUT") {
     runHandler();
     // make keypress have the same visual effect as "hover"
     run.dataset.buttonState = "active";
     event.preventDefault();
   }
   // when input box is not focused, right arrow performs "step"
-  if (event.key === "ArrowRight" && !document.activeElement.isContentEditable) {
+  if (
+    event.key === "ArrowRight" &&
+    document.activeElement.tagName !== "INPUT"
+  ) {
     stepHandler(event);
     // make keypress have the same visual effect as "hover"
     step.dataset.buttonState = "active";
@@ -201,7 +204,7 @@ function gridSizeHandler(event) {
     alertMsg = document.getElementById("alert-message");
 
   if (oldVal === newVal) return;
-  if (isNaN(newVal) || newVal < 0) {
+  if (newVal < 0) {
     alertMsg.textContent = "We only accept nonnegative numbers ;)";
     error = true;
   }

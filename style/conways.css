@@ -127,20 +127,27 @@ body {
   padding-right: 1vmin;
   width: 7vmin;
 }
-#control-bar input[type="text"] {
+#control-bar input[type="number"] {
+  all: unset;
   vertical-align: middle;
   font-size: inherit;
-  border: 0;
   text-align: center;
   color: inherit;
   width: 3ch;
+  -moz-appearance: textfield;
 }
-#control-bar input[type="text"]:hover {
+#control-bar input[type="number"]:hover {
   color: rgba(255, 255, 255, 0.872);
   background-color: rgba(43, 43, 43, 0.94);
 }
-#control-bar input[type="text"]:focus {
+#control-bar input[type="number"]:focus {
   outline: 0;
+}
+#control-bar input[type="number"]::-webkit-outer-spin-button,
+#control-bar input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  -ms-appearance: none;
+  appearance: none;
 }
 @media (hover: hover) {
   .forMobile {
