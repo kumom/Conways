@@ -203,7 +203,10 @@ function gridSizeHandler(event) {
   let error = false,
     alertMsg = document.getElementById("alert-message");
 
-  if (oldVal === newVal) return;
+  if (oldVal === newVal) {
+    event.target.value = newVal; // avoid typing multiple zeros like "000"
+    return;
+  }
   if (newVal < 0) {
     alertMsg.textContent = "We only accept nonnegative numbers ;)";
     error = true;
@@ -212,6 +215,7 @@ function gridSizeHandler(event) {
     alertMsg.textContent = "Cell side cannot be less than 10 pixels";
     error = true;
   }
+
   if (error) {
     // fall back to old value
     event.target.value = oldVal;

@@ -47,10 +47,10 @@ export function setCells() {
       cell.dataset.state = "dead";
       numDead += 1;
     }
-    cellGrid.alive = numAlive;
-    cellGrid.dead = numDead;
-    updateInfoBar();
   }
+  cellGrid.alive = numAlive;
+  cellGrid.dead = numDead;
+  updateInfoBar();
 }
 
 setCellGrid();
