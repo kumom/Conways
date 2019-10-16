@@ -32,8 +32,6 @@ button {
   all: unset;
   transition: all 0.2s;
   cursor: pointer;
-}
-button:focus {
   outline: 0;
 }
 .popup {
@@ -81,7 +79,6 @@ button:focus {
 body {
   display: grid;
   grid-template: "info-bar" 0.5fr "cell-grid" 8.3fr "control-bar" 0.7fr / 1fr;
-  gap: 1% 0;
   height: 100%;
   color: rgba(43, 43, 43, 0.94);
   background: rgba(255, 255, 255, 0.872);
@@ -91,9 +88,7 @@ body {
   align-items: center;
   justify-content: space-between;
   font-size: 4.5vmin;
-  padding-left: 1vw;
-  padding-right: 1vw;
-  padding-top: 1vh;
+  padding: 1vmin;
 }
 #cell-grid {
   display: grid;
@@ -115,16 +110,19 @@ body {
   align-items: center;
   justify-content: space-between;
   font-size: 4.5vmin;
-  padding-left: 1vw;
-  padding-right: 1vw;
-  padding-bottom: 1vh;
+  padding: 1vmin;
+}
+#control-bar #control-button-container {
+  display: flex;
+  flex: 0 0 30vmin;
+  align-items: center;
+  justify-content: space-between;
 }
 #control-bar .control-button img {
   position: relative;
   z-index: -100;
-  padding-top: 1.5vh;
-  padding-right: 1vmin;
-  width: 7vmin;
+  width: 6vmin;
+  background-size: 100% 100%;
 }
 #control-bar input[type="number"] {
   all: unset;
@@ -149,7 +147,7 @@ body {
   appearance: none;
 }
 @media (hover: hover) {
-  .forMobile {
+  .for-mobile {
     display: none;
   }
   button:hover {
@@ -157,7 +155,7 @@ body {
   }
 }
 @media (hover: none) {
-  .forDesktop {
+  .for-desktop {
     display: none;
   }
 }

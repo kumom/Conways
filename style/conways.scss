@@ -12,16 +12,7 @@ $dead-color: #bd6a62;
   align-items: center;
   justify-content: space-between;
   font-size: 4.5vmin;
-  padding-left: 1vw;
-  padding-right: 1vw;
-}
-
-@mixin header {
-  padding-top: 1vh;
-}
-
-@mixin footer {
-  padding-bottom: 1vh;
+  padding: 1vmin;
 }
 
 $buttons: run pause step restart about;
@@ -53,9 +44,7 @@ button {
   all: unset;
   transition: all 0.2s;
   cursor: pointer;
-  &:focus {
-    outline: 0;
-  }
+  outline: 0;
 }
 
 .popup {
@@ -108,7 +97,6 @@ body {
     "info-bar" 0.5fr
     "cell-grid" 8.3fr
     "control-bar" 0.7fr / 1fr;
-  gap: 1% 0;
   height: 100%;
   color: rgba(43, 43, 43, 0.94);
   background: hsla(0, 0%, 100%, 0.872);
@@ -116,7 +104,6 @@ body {
 
 #info-bar {
   @include header-footer();
-  @include header();
 }
 
 #cell-grid {
@@ -137,14 +124,19 @@ body {
 
 #control-bar {
   @include header-footer();
-  @include footer();
+  #control-button-container {
+    display: flex;
+    flex: 0 0 30vmin;
+    align-items: center;
+    justify-content: space-between;
+  }
+
   .control-button img {
     /* shift images to the bottom of stack so that click events on buttons fire */
     position: relative;
     z-index: -100;
-    padding-top: 1.5vh;
-    padding-right: 1vmin;
-    width: 7vmin;
+    width: 6vmin;
+    background-size: 100% 100%;
   }
   input[type="number"] {
     all: unset;
@@ -171,7 +163,7 @@ body {
 
 /* Display elements differently based on type of devices */
 @media (hover: hover) {
-  .forMobile {
+  .for-mobile {
     display: none;
   }
   button:hover {
@@ -179,7 +171,7 @@ body {
   }
 }
 @media (hover: none) {
-  .forDesktop {
+  .for-desktop {
     display: none;
   }
 }

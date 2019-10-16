@@ -187,7 +187,7 @@ function stopRunning() {
   clearInterval(cellGrid.running);
   cellGrid.running = null;
   document.querySelector("#run .pause-icon").className = "run-icon";
-  document.getElementById("run").title = "Run";
+  run.title = "Run";
 }
 
 function startRunning() {
