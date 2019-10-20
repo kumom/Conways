@@ -124,7 +124,7 @@ body {
   width: 6vmin;
   background-size: 100% 100%;
 }
-#control-bar input[type="number"] {
+#control-bar input {
   all: unset;
   vertical-align: middle;
   font-size: inherit;
@@ -133,15 +133,15 @@ body {
   width: 3ch;
   -moz-appearance: textfield;
 }
-#control-bar input[type="number"]:hover {
+#control-bar input:hover {
   color: rgba(255, 255, 255, 0.872);
   background-color: rgba(43, 43, 43, 0.94);
 }
-#control-bar input[type="number"]:focus {
+#control-bar input:focus {
   outline: 0;
 }
-#control-bar input[type="number"]::-webkit-outer-spin-button,
-#control-bar input[type="number"]::-webkit-inner-spin-button {
+#control-bar input::-webkit-outer-spin-button,
+#control-bar input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   -ms-appearance: none;
   appearance: none;

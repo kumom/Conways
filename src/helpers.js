@@ -34,3 +34,18 @@ export function setMaxRowCol() {
   cellGrid.maxrow = ~~(window.innerHeight / minCellSize);
   cellGrid.maxcol = ~~(window.innerWidth / minCellSize);
 }
+
+/* Caret Positioning */
+export function saveCaret(target) {
+  if (target.id === "row" || target.id === "col") {
+    target.startOffset = target.selectionStart;
+    target.endOffset = target.selectionEnd;
+  }
+}
+
+export function restoreCaret(target) {
+  if (target.id === "row" || target.id === "col") {
+    target.selectionStart = target.startOffset;
+    target.selectionEnd = target.endOffset;
+  }
+}

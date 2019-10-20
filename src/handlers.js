@@ -4,7 +4,9 @@ import {
   numAliveNeighbor,
   setMaxRowCol,
   isAlive,
-  updateInfoBar
+  updateInfoBar,
+  saveCaret,
+  restoreCaret
 } from "./helpers.js";
 import { setCellGrid, setCells } from "./init.js";
 
@@ -124,6 +126,11 @@ document.addEventListener("resize", setMaxRowCol);
 /* Clean up current cell grid and set up a new one */
 document.getElementById("total").addEventListener("input", gridSizeHandler);
 
+/* Help save and restore caret positions in case the value needs to be reset */
+document.getElementById("total").addEventListener("keydown", event => {
+  saveCaret(event.target);
+});
+
 function toggleCellState(cell) {
   // check it's indeed a cell instead of the cell grid
   if (cell.className === "cell") {
@@ -204,11 +211,12 @@ function gridSizeHandler(event) {
     alertMsg = document.getElementById("alert-message");
 
   if (oldVal === newVal) {
-    event.target.value = newVal; // avoid typing multiple zeros like "000"
+    event.target.value = oldVal; // avoid typing multiple zeros like "000"
+    restoreCaret(event.target);
     return;
   }
-  if (newVal < 0) {
-    alertMsg.textContent = "We only accept nonnegative numbers ;)";
+  if (newVal < 0 || isNaN(newVal) || !Number.isInteger(newVal)) {
+    alertMsg.textContent = "We only accept nonnegative integers ;)";
     error = true;
   }
   if (newVal > cellGrid["max" + nodeId]) {
@@ -219,6 +227,7 @@ function gridSizeHandler(event) {
   if (error) {
     // fall back to old value
     event.target.value = oldVal;
+    restoreCaret(event.target);
     // show alert box and make it disappear after 2000ms
     alertBox.style.display = "flex";
     setTimeout(() => {
