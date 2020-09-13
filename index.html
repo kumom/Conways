@@ -1,89 +1,98 @@
 <html lang="en">
 
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-        <title>Conway's Game of Life</title>
-        <link href="https://fonts.googleapis.com/css?family=Baloo+Da" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="style/conways.css">
-        <link rel="prefetch" href="img/pause.svg" />
-    </head>
+<head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-149951166-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
 
-    <body>
-        <div id="modal" class="popup">
-            <h1>Conway's Game <a href="https://github.com/kumom/conways" target="_blank" rel="noopener"><img
-                        src="img/github.png"></a>f
-                Life</h1>
-            <p>
-                In this torus 2D grid, each cell as a "life" has 8 surrounding neighbors.
-                <span style-alive>Alive</span> cells die in the next round
-                if the
-                number of
-                their
-                alive neighbors is
-                strictly less than 2 or greater than 3.
-                <span style-dead>Dead</span> cells would come back to life if
-                they have exactly 3 alive neighbors.
+        gtag('config', 'UA-149951166-1');
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Conway's Game of Life</title>
+    <link href="https://fonts.googleapis.com/css?family=Baloo+Da" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="style/conways.css">
+    <link rel="prefetch" href="img/pause.svg" />
+</head>
 
-                <h2>&lt;Control&gt;</h2>
-                <!-- Do not display the following on touchscreen devices -->
-                <div class="for-desktop">
-                    <img class="run-icon"> or "space" key runs the
-                    game<br>
-                    <img class="step-icon"> or "->" key makes one step<br>
-                    <img class="restart-icon"> restarts with a random
-                    pattern<br>
-                    Click and drag: toggle cell state<br>
-                    P.S. You can change the grid size
-                </div>
-                <!-- Do not display the following on non-touchscreen devices -->
-                <div class="for-mobile">
-                    <img class="run-icon"> runs the game<br>
-                    <img class="step-icon"> makes one step<br>
-                    <img class="restart-icon"> restarts with a random
-                    pattern<br>
-                    Tap and drag: toggle cell state<br>
-                    P.S. You can change the grid size
-                </div>
+<body>
+    <div id="modal" class="popup">
+        <h1>Conway's Game <a href="https://github.com/kumom/conways" target="_blank" rel="noopener"><img
+                    src="img/github.png"></a>f
+            Life</h1>
+        <p>
+            In this torus 2D grid, each cell as a "life" has 8 surrounding neighbors.
+            <span style-alive>Alive</span> cells die in the next round
+            if the
+            number of
+            their
+            alive neighbors is
+            strictly less than 2 or greater than 3.
+            <span style-dead>Dead</span> cells would come back to life if
+            they have exactly 3 alive neighbors.
 
-            </p>
+        <h2>&lt;Control&gt;</h2>
+        <!-- Do not display the following on touchscreen devices -->
+        <div class="for-desktop">
+            <img class="run-icon"> or "space" key runs the
+            game<br>
+            <img class="step-icon"> or "->" key makes one step<br>
+            <img class="restart-icon"> restarts with a random
+            pattern<br>
+            Click and drag: toggle cell state<br>
+            P.S. You can change the grid size
+        </div>
+        <!-- Do not display the following on non-touchscreen devices -->
+        <div class="for-mobile">
+            <img class="run-icon"> runs the game<br>
+            <img class="step-icon"> makes one step<br>
+            <img class="restart-icon"> restarts with a random
+            pattern<br>
+            Tap and drag: toggle cell state<br>
+            P.S. You can change the grid size
         </div>
 
-        <div id="alert-box" class="popup">
-            <span id="alert-message"></span>
+        </p>
+    </div>
+
+    <div id="alert-box" class="popup">
+        <span id="alert-message"></span>
+    </div>
+
+    <div id="info-bar">
+        <span id="alive-info" style-alive>#alive: 0</span>
+        <span id="dead-info" style-dead>#dead: 0</span>
+    </div>
+    <div id="cell-grid">
+    </div>
+
+    <div id="control-bar">
+        <div id="control-button-container">
+            <button id="run" class="control-button" title="Run" data-button-state="inactive"><img
+                    class="run-icon"></button>
+            <button id="step" class="control-button" title="Step" data-button-state="inactive"><img
+                    class="step-icon"></button>
+            <button id="restart" class="control-button" title="Restart" data-button-state="inactive"><img
+                    class="restart-icon"></button>
+            <button id="about" class="control-button" title="About" data-button-state="inactive"><img
+                    class="about-icon"></button>
         </div>
 
-        <div id="info-bar">
-            <span id="alive-info" style-alive>#alive: 0</span>
-            <span id="dead-info" style-dead>#dead: 0</span>
+        <div id="total">#total:
+            <input type="text" id="row" value=0>
+            <span>&times;</span>
+            <input type="text" id="col" value=0>
+            <span>=</span>
+            <span id="total-result">0</span>
         </div>
-        <div id="cell-grid">
-        </div>
+    </div>
 
-        <div id="control-bar">
-            <div id="control-button-container">
-                <button id="run" class="control-button" title="Run" data-button-state="inactive"><img
-                        class="run-icon"></button>
-                <button id="step" class="control-button" title="Step" data-button-state="inactive"><img
-                        class="step-icon"></button>
-                <button id="restart" class="control-button" title="Restart" data-button-state="inactive"><img
-                        class="restart-icon"></button>
-                <button id="about" class="control-button" title="About" data-button-state="inactive"><img
-                        class="about-icon"></button>
-            </div>
-
-            <div id="total">#total:
-                <input type="text" id="row" value=0>
-                <span>&times;</span>
-                <input type="text" id="col" value=0>
-                <span>=</span>
-                <span id="total-result">0</span>
-            </div>
-        </div>
-
-        <script type="module" src="src/init.js"></script>
-        <script type="module" src="src/handlers.js"></script>
-    </body>
+    <script type="module" src="src/init.js"></script>
+    <script type="module" src="src/handlers.js"></script>
+</body>
 
 </html>
