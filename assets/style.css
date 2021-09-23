@@ -1,21 +1,25 @@
 .run-icon {
-  content: url("img/run.svg");
+  content: url("/conways/assets/run.svg");
 }
 
 .pause-icon {
-  content: url("img/pause.svg");
+  content: url("/conways/assets/pause.svg");
 }
 
 .step-icon {
-  content: url("img/step.svg");
+  content: url("/conways/assets/step.svg");
 }
 
 .restart-icon {
-  content: url("img/restart.svg");
+  content: url("/conways/assets/restart.svg");
 }
 
 .about-icon {
-  content: url("img/about.svg");
+  content: url("/conways/assets/about.svg");
+}
+
+#github-icon {
+  content: url("/conways/assets/github.png");
 }
 
 [data-button-state="active"] {

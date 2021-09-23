@@ -31,8 +31,8 @@ export function updateInfoBar() {
 /* Calculate allowed max row and col */
 export function setMaxRowCol() {
   let minCellSize = 10; // Cell width and height cannot be less than 10 pixels
-  cellGrid.maxrow = ~~(window.innerHeight / minCellSize);
-  cellGrid.maxcol = ~~(window.innerWidth / minCellSize);
+  cellGrid.maxrow = Math.max(~~(window.innerHeight / minCellSize), 20);
+  cellGrid.maxcol = Math.max(~~(window.innerWidth / minCellSize), 20);
 }
 
 /* Caret Positioning */

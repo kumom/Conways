@@ -15,14 +15,12 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Conway's Game of Life</title>
     <link href="https://fonts.googleapis.com/css?family=Baloo+Da" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <link rel="prefetch" href="img/pause.svg" />
+    <link href="/conways/assets/style.css" rel="stylesheet">
 </head>
 
 <body>
     <div id="modal" class="popup">
-        <h1>Conway's Game <a href="https://github.com/kumom/conways" target="_blank" rel="noopener"><img
-                    src="img/github.png"></a>f
+        <h1>Conway's Game <a href="https://github.com/kumom/conways" target="_blank" rel="noopener"><img id="github-icon"></a>f
             Life</h1>
         <p>
             In this torus 2D grid, each cell as a "life" has 8 surrounding neighbors.
@@ -90,9 +88,6 @@
             <span id="total-result">0</span>
         </div>
     </div>
-
-    <script type="module" src="src/init.js"></script>
-    <script type="module" src="src/handlers.js"></script>
 </body>
 
 </html>

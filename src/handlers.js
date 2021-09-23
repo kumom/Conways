@@ -2,136 +2,13 @@
 
 import {
   numAliveNeighbor,
-  setMaxRowCol,
   isAlive,
   updateInfoBar,
-  saveCaret,
-  restoreCaret
 } from "./helpers.js";
-import { setCellGrid, setCells } from "./init.js";
 
-let cellGrid = document.getElementById("cell-grid"),
-  run = document.getElementById("run"),
-  step = document.getElementById("step"),
-  controlButtons = document.getElementById("control-button-container"),
-  modal = document.getElementById("modal"),
-  alertBox = document.getElementById("alert-box");
+export function toggleCellState(cell) {
+  const cellGrid = document.getElementById("cell-grid");
 
-/* Handling cell state toggle */
-["mousedown", "mouseover"].forEach(eventType => {
-  cellGrid.addEventListener(eventType, event => {
-    if (event.target.className === "cell") {
-      if (eventType === "mousedown" || event.buttons === 1) {
-        toggleCellState(event.target);
-      }
-    }
-  });
-});
-["touchmove", "touchstart"].forEach(eventType => {
-  cellGrid.addEventListener(eventType, event => {
-    if (event.target.className === "cell") {
-      // equivalent with cellGrid mousedown/mouseover but for mobile
-      // solution from: https://stackoverflow.com/questions/3918842/how-to-find-out-the-actual-event-target-of-touchmove-javascript-event
-      // comment: for me this is the safest solution for devices that have both a mouse and a touchscreen
-      touchToToggle(event);
-    }
-  });
-});
-
-/* Delegated handler for click/tap events */
-document.addEventListener("click", event => {
-  switch (event.target.id) {
-    case "step":
-      stepHandler(event);
-      break;
-    case "run":
-      runHandler();
-      break;
-    case "restart":
-      if (cellGrid.running) {
-        stopRunning();
-      }
-      setCells();
-      break;
-    case "about":
-      if (cellGrid.running) {
-        stopRunning();
-      }
-      modal.style.display = "flex";
-      break;
-    default:
-      alertBox.style.display = "none";
-  }
-});
-// comment: this is ugly appended code to fix the problem
-//          that click events seems not to fire for <div> elements when using event delegation
-modal.addEventListener("click", () => {
-  modal.style.display = "none";
-});
-
-/* Add active button effect and handler to pressing Space/Arrowright key */
-// for desktop
-document.addEventListener("keydown", event => {
-  // when input box is not focused, space performs "run"
-  if (event.key === " " && document.activeElement.tagName !== "INPUT") {
-    runHandler();
-    // make keypress have the same visual effect as "hover"
-    run.dataset.buttonState = "active";
-    event.preventDefault();
-  }
-  // when input box is not focused, right arrow performs "step"
-  if (
-    event.key === "ArrowRight" &&
-    document.activeElement.tagName !== "INPUT"
-  ) {
-    stepHandler(event);
-    // make keypress have the same visual effect as "hover"
-    step.dataset.buttonState = "active";
-    event.preventDefault();
-  }
-});
-// for mobile
-controlButtons.addEventListener("touchstart", event => {
-  if (event.target.className === "control-button") {
-    event.target.dataset.buttonState = "active";
-  }
-});
-
-/* Remove active button effect */
-// for desktop
-document.addEventListener("keyup", event => {
-  // make keypress have the same visual effect as "hover"
-  if (event.key === " ") {
-    run.dataset.buttonState = "inactive";
-  }
-
-  if (event.key === "ArrowRight") {
-    step.dataset.buttonState = "inactive";
-  }
-});
-// for mobile
-["touchend", "touchcancel"].forEach(eventType => {
-  controlButtons.addEventListener(eventType, () => {
-    for (let node of controlButtons.children) {
-      if (node.className === "control-button") {
-        node.dataset.buttonState = "inactive";
-      }
-    }
-  });
-});
-
-/* Adjust allowed max row and col if document size changes */
-document.addEventListener("resize", setMaxRowCol);
-
-/* Clean up current cell grid and set up a new one */
-document.getElementById("total").addEventListener("input", gridSizeHandler);
-
-/* Help save and restore caret positions in case the value needs to be reset */
-document.getElementById("total").addEventListener("keydown", event => {
-  saveCaret(event.target);
-});
-
-function toggleCellState(cell) {
   // check it's indeed a cell instead of the cell grid
   if (cell.className === "cell") {
     let deadSoon = isAlive(cell),
@@ -144,7 +21,9 @@ function toggleCellState(cell) {
   }
 }
 
-function touchToToggle(event) {
+export function touchToToggle(event) {
+  const cellGrid = document.getElementById("cell-grid");
+
   // get coordinates depending on pointer type:
   let xcoord = event.touches ? event.touches[0].pageX : event.pageX,
     ycoord = event.touches ? event.touches[0].pageY : event.pageY;
@@ -157,7 +36,9 @@ function touchToToggle(event) {
   event.preventDefault();
 }
 
-function stepHandler(event) {
+export function stepHandler(event) {
+  const cellGrid = document.getElementById("cell-grid");
+
   let deadSoon = [],
     aliveSoon = [];
 
@@ -181,7 +62,17 @@ function stepHandler(event) {
   aliveSoon = [];
 }
 
-function runHandler() {
+function startRunning() {
+  const run = document.getElementById("run"), cellGrid = document.getElementById("cell-grid");
+
+  cellGrid.running = setInterval(stepHandler, 500);
+  document.querySelector("#run .run-icon").className = "pause-icon";
+  run.title = "Pause";
+}
+
+export function runHandler() {
+  const cellGrid = document.getElementById("cell-grid");
+
   // It basically toggles the current running state
   if (cellGrid.running) {
     stopRunning();
@@ -190,55 +81,12 @@ function runHandler() {
   }
 }
 
-function stopRunning() {
+export function stopRunning() {
+  const run = document.getElementById("run"), cellGrid = document.getElementById("cell-grid");
+
   clearInterval(cellGrid.running);
   cellGrid.running = null;
   document.querySelector("#run .pause-icon").className = "run-icon";
   run.title = "Run";
 }
 
-function startRunning() {
-  cellGrid.running = setInterval(stepHandler, 500);
-  document.querySelector("#run .run-icon").className = "pause-icon";
-  run.title = "Pause";
-}
-
-function gridSizeHandler(event) {
-  let nodeId = event.target.id, // "row" or "col"
-    newVal = Number(event.target.value),
-    oldVal = cellGrid[nodeId];
-  let error = false,
-    alertMsg = document.getElementById("alert-message");
-
-  if (oldVal === newVal) {
-    event.target.value = oldVal; // avoid typing multiple zeros like "000"
-    restoreCaret(event.target);
-    return;
-  }
-  if (newVal < 0 || isNaN(newVal) || !Number.isInteger(newVal)) {
-    alertMsg.textContent = "We only accept nonnegative integers ;)";
-    error = true;
-  }
-  if (newVal > cellGrid["max" + nodeId]) {
-    alertMsg.textContent = "Cell side cannot be less than 10 pixels";
-    error = true;
-  }
-
-  if (error) {
-    // fall back to old value
-    event.target.value = oldVal;
-    restoreCaret(event.target);
-    // show alert box and make it disappear after 2000ms
-    alertBox.style.display = "flex";
-    setTimeout(() => {
-      alertBox.style.display = "none";
-    }, 2000);
-  } else {
-    if (cellGrid.running) {
-      stopRunning();
-    }
-    cellGrid[nodeId] = newVal;
-    setCellGrid(cellGrid.row, cellGrid.col);
-    setCells();
-  }
-}
