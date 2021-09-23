@@ -1,0 +1,20 @@
+{
+  "name": "conways",
+  "version": "1.0.0",
+  "description": "With my limited knowledge of css, I think the grid layout (by setting `grid-auto-columns` and `grid-auto-rows` to `1fr`) can be used as a hacky way to implement the infinite field. But since I am using a bunch of `<span>` elements to represent the cells, it would be super slow anyway. [The demo implemented by copy](https://github.com/copy/life) looks amazing and I hope to have time to look deeper into that later.",
+  "main": "src/init.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "deploy": "aws s3 sync . s3://kumom.io/conways/ --exclude '*.DS_Store'  --exclude '.gitignore' --exclude 'package.json' --exclude 'README.md' --exclude 'LICENSE' --exclude '.git*'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kumom/conways.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kumom/conways/issues"
+  },
+  "homepage": "https://github.com/kumom/conways#readme"
+}
